@@ -3204,6 +3204,9 @@ class PYDAFOAM(object):
         rootDir = os.getcwd()
         if self.parallel:
             checkPath = os.path.join(rootDir, "processor%d/%g" % (self.comm.rank, solTime))
+            if not os.path.isdir(checkPath) and self.comm.rank == 0:
+                #in collated I/O mode, everything is dropped in a single folder. Let's have rank 0 handle this.
+                checkPath = os.path.join(rootDir, "processors%d/%g" % (self.comm.size, solTime))
         else:
             checkPath = os.path.join(rootDir, "%g" % solTime)
 
@@ -3233,9 +3236,15 @@ class PYDAFOAM(object):
             The major interation index
         """
 
+        collatedIO = False #<---TODO turn this into a DAFoamOption?
         rootDir = os.getcwd()
         if self.parallel:
             checkPath = os.path.join(rootDir, "processor%d" % self.comm.rank)
+            if not os.path.isdir(checkPath):
+                collatedIO = True
+                #in collated I/O mode, everything is dropped in a single folder. Let's have rank 0 handle renaming.
+                if self.comm.rank==0: 
+                    checkPath = os.path.join(rootDir, "processors%d" % self.comm.size)
         else:
             checkPath = rootDir
 
@@ -3246,21 +3255,26 @@ class PYDAFOAM(object):
             renamed = False
             return latestTime, renamed
 
-        distTime = "%g" % (solIndex / 1e8)
-        targetTime = "%g" % latestTime
+        distTime = 0.0 #initializing
+        if (not collatedIO or (collatedIO and self.comm.rank==0) ):
+            distTime = "%g" % (solIndex / 1e8)
+            targetTime = "%g" % latestTime
 
-        src = os.path.join(checkPath, targetTime)
-        dst = os.path.join(checkPath, distTime)
+            src = os.path.join(checkPath, targetTime)
+            dst = os.path.join(checkPath, distTime)
 
-        Info("Moving time %s to %s" % (targetTime, distTime))
+            Info("Moving time %s to %s" % (targetTime, distTime))
 
-        if os.path.isdir(dst):
-            raise Error("%s already exists, moving failed!" % dst)
-        else:
-            try:
-                shutil.move(src, dst)
-            except Exception:
-                raise Error("Can not move %s to %s" % (src, dst))
+            if os.path.isdir(dst):
+                raise Error("%s already exists, moving failed!" % dst)
+            else:
+                try:
+                    shutil.move(src, dst)
+                except Exception:
+                    raise Error("Can not move %s to %s" % (src, dst))
+
+        if collatedIO:            
+            distTime = self.comm.bcast(distTime, root=0) #let rank 0 send the solvertime            
 
         renamed = True
         return distTime, renamed
