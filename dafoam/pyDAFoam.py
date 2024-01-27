@@ -3257,13 +3257,15 @@ class PYDAFOAM(object):
 
         distTime = 0.0 #initializing
         if (not collatedIO or (collatedIO and self.comm.rank==0) ):
-            distTime = "%g" % (solIndex / 1e8)
+            distTime = "%g" % (solIndex / 1e8) #is this really what we want? this makes my OpenFOAM crash... "%.8f" worked better
             targetTime = "%g" % latestTime
 
             src = os.path.join(checkPath, targetTime)
             dst = os.path.join(checkPath, distTime)
 
-            Info("Moving time %s to %s" % (targetTime, distTime))
+            if self.comm.rank==0:
+                #cannot use Info here because it has a barrier
+                print("Moving time %s to %s" % (targetTime, distTime), flush=True)
 
             if os.path.isdir(dst):
                 raise Error("%s already exists, moving failed!" % dst)
