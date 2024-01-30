@@ -780,27 +780,21 @@ void DAField::checkSpecialBCs()
     // *******************************************************************
     //                     pressureInletVelocity
     // *******************************************************************
-    // Note we need to read the U field, instead of getting it from db
-    // this is because coloringSolver does not read U
-    // Also we need to set read_if_present for solid solvers in which
-    // there is no U field
-    volVectorField U(
-        IOobject(
-            "U",
-            mesh_.time().timeName(),
-            mesh_,
-            IOobject::READ_IF_PRESENT,
-            IOobject::NO_WRITE,
-            false),
-        mesh_,
-        dimensionedVector("U", dimensionSet(0, 1, -1, 0, 0, 0, 0), vector::zero),
-        zeroGradientFvPatchField<vector>::typeName);
-    forAll(U.boundaryField(), patchI)
+    // There is no need to read U in this function, we can just check if U
+    // exists in the mesh object. If yes, get it from memory.
+    if (mesh_.thisDb().foundObject<volVectorField>("U"))
     {
-        if (U.boundaryFieldRef()[patchI].type() == "pressureInletVelocity")
+        // const volVectorField& U = mesh_.thisDb().lookupObject<volVectorField>("U");
+        volVectorField& U(const_cast<volVectorField&>(
+            mesh_.thisDb().lookupObject<volVectorField>("U")));
+    
+        forAll(U.boundaryField(), patchI)
         {
-            specialBCs.append("pressureInletVelocity");
-            break;
+            if (U.boundaryFieldRef()[patchI].type() == "pressureInletVelocity")
+            {
+                specialBCs.append("pressureInletVelocity");
+                break;
+            }
         }
     }
 
