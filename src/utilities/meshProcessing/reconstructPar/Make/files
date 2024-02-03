@@ -1,0 +1,6 @@
+DAReconstructPar.C
+
+LIB = $(DAFOAM_ROOT_PATH)/OpenFOAM/sharedLibs/libReconstructPar
+#$(DF_LIB_SUFFIX)
+
+

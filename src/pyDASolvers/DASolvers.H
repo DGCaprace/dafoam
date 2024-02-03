@@ -438,6 +438,12 @@ public:
     {
         return DASolverPtr_->checkMesh();
     }
+    
+    /// basically, we call DASolver::reconstructPar
+    label reconstructPar() const
+    {
+        return DASolverPtr_->reconstructPar();
+    }
 
     /// Get the number of faces for the MDO coupling patches
     label getNCouplingFaces()

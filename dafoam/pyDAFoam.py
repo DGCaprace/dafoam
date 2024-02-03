@@ -1928,6 +1928,10 @@ class PYDAFOAM(object):
 
         self.nSolvePrimals += 1
 
+        #NO IDEA WHETHER THIS IS THE RIGHT PLACE TO DO THIS, but let's put it here for now:
+        self.solver.reconstructPar()
+        # TODO: should also delete all the processorXX folders. Do it in the python layer or in C?
+
         return
 
     def readStateVars(self, timeVal, deltaT):

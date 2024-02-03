@@ -94,6 +94,7 @@ cdef extern from "DASolvers.H" namespace "Foam":
         int getNCouplingFaces()
         int getNCouplingPoints()
         int checkMesh()
+        int reconstructPar()
         double getObjFuncValue(char *)
         double getObjFuncValueUnsteady(char *)
         double getObjFuncUnsteadyScaling()
@@ -379,6 +380,9 @@ cdef class pyDASolvers:
     
     def checkMesh(self):
         return self._thisptr.checkMesh()
+    
+    def reconstructPar(self):
+        return self._thisptr.reconstructPar()
     
     def getObjFuncValue(self, objFuncName):
         return self._thisptr.getObjFuncValue(objFuncName)

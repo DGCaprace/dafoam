@@ -42,6 +42,7 @@ DASolver::DASolver(
       daIndexPtr_(nullptr),
       daFieldPtr_(nullptr),
       daCheckMeshPtr_(nullptr),
+      daReconstructParPtr_(nullptr),
       daLinearEqnPtr_(nullptr),
       daResidualPtr_(nullptr),
       daRegressionPtr_(nullptr)

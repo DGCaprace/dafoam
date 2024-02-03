@@ -22,6 +22,7 @@
 #include "fvOptions.H"
 #include "DAUtility.H"
 #include "DACheckMesh.H"
+#include "DAReconstructPar.H"
 #include "DAOption.H"
 #include "DAStateInfo.H"
 #include "DAModel.H"
@@ -90,6 +91,9 @@ protected:
 
     /// DACheckMesh object pointer
     autoPtr<DACheckMesh> daCheckMeshPtr_;
+    
+    /// DAReconstructPar object pointer
+    autoPtr<DAReconstructPar> daReconstructParPtr_;
 
     /// DALinearEqn pointer
     autoPtr<DALinearEqn> daLinearEqnPtr_;
@@ -865,6 +869,12 @@ public:
     label checkMesh() const
     {
         return daCheckMeshPtr_->run();
+    }
+    
+    /// check the mesh quality and return meshOK
+    label reconstructPar() const
+    {
+        return daReconstructParPtr_->run();
     }
 
     /// return the value of the objective function
