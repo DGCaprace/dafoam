@@ -20,7 +20,7 @@ DAReconstructPar::DAReconstructPar(
     const fvMesh& mesh1)
     : daOption_(daOption),
       runTime(runTime1),
-      mesh(mesh1),
+      mesh(mesh1)
 {
 
     fvMesh& meshNew = const_cast<fvMesh&>(mesh);

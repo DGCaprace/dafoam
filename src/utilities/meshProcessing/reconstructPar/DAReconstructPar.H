@@ -16,9 +16,9 @@
 #include "fvMesh.H"
 #include "IOdictionary.H"
 
-// #include "processorMeshes.H" // <---------------------------?
-// #include "regionProperties.H" // <---------------------------?
-// #include "fvFieldReconstructor.H" 
+#include "processorMeshes.H" 
+#include "regionProperties.H"
+#include "fvFieldReconstructor.H" 
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //
 

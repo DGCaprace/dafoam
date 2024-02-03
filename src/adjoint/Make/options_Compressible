@@ -16,6 +16,7 @@ EXE_INC = \
     -I$(LIB_SRC)/fileFormats/lnInclude \
     -I$(LIB_SRC)/surfMesh/lnInclude \
     -I../include \
+    -I../utilities/meshProcessing/reconstructPar \
     -I$(PETSC_DIR)/include \
     -I$(PETSC_DIR)/$(PETSC_ARCH)/include \
     -I$(MPI_ARCH_PATH)/include \
