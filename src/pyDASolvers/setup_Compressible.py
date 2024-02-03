@@ -65,6 +65,7 @@ ext = [
             numpy.get_include(),
             os.getenv("PETSC_DIR") + "/" + os.getenv("PETSC_ARCH") + "/include",
             "../adjoint/lnInclude",
+            "../utilities/meshProcessing/reconstructPar",
             "../include",
             "./",
         ],

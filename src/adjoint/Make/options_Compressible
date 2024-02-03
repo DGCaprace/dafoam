@@ -15,6 +15,8 @@ EXE_INC = \
     -I$(LIB_SRC)/meshTools/lnInclude \
     -I$(LIB_SRC)/fileFormats/lnInclude \
     -I$(LIB_SRC)/surfMesh/lnInclude \
+    -I$(LIB_SRC)/parallel/reconstruct/reconstruct/lnInclude \
+    -I$(LIB_SRC)//regionModels/regionModel/regionProperties \
     -I../include \
     -I../utilities/meshProcessing/reconstructPar \
     -I$(PETSC_DIR)/include \
