@@ -59,6 +59,9 @@ ext = [
             os.getenv("FOAM_SRC") + "/codipack/include",
             os.getenv("FOAM_SRC") + "/medipack/include",
             os.getenv("FOAM_SRC") + "/medipack/src",
+            # reconstructPar dependencies
+            os.getenv("FOAM_SRC") + "parallel/reconstruct/reconstruct/lnInclude",
+            os.getenv("FOAM_SRC") + "/regionModels/regionModel/regionProperties",
             # DAFoam include
             os.getenv("PETSC_DIR") + "/include",
             petsc4py.get_include(),
