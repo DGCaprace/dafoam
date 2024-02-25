@@ -104,6 +104,9 @@ autoPtr<DASolver> DASolver::New(
             << exit(FatalError);
     }
 
+    // initialize reconstructPar
+    daReconstructParPtr_.reset(new DAReconstructPar(daOptionPtr_())); //runTime, mesh?
+
     // child class found
     return autoPtr<DASolver>(
         cstrIter()(argsAll, pyOptions));

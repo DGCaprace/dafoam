@@ -4,6 +4,8 @@ DACheckMesh/DACheckMesh.C
 DACheckMesh/checkGeometry.C
 DACheckMesh/checkTools.C
 
+DAReconstruct/DAReconstructPar.C
+
 DAOption/DAOption.C
 
 DARegDb/DARegDbFluidThermo.C

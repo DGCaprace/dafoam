@@ -53,6 +53,8 @@ label DAReconstructPar::run() const
         meshOK: 1 means quality passes
     */
 
+#if !defined(CODI_AD_FORWARD) & !defined(CODI_AD_REVERSE)    
+
     label reconstructOK = 1;
 
     Info << "reconstructPar for time = " << runTime.timeName() << endl;
@@ -364,6 +366,9 @@ label DAReconstructPar::run() const
     */
 
     return reconstructOK;
+#else
+    return 0;
+#endif    
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * //

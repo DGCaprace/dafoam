@@ -340,6 +340,11 @@ class DAOPTION(object):
         ## An option to run the primal only; no adjoint or optimization will be run
         self.primalOnly = False
 
+        ## An option to trigger the automatic reconstruction of the solution after each iteration
+        ## and delete the uncollated output. This slows down the execution a bit, but significantly 
+        ## reduces the number of files at the end of the run.
+        self.reconstructOpt = False
+
         # *********************************************************************************************
         # ****************************** Intermediate Options *****************************************
         # *********************************************************************************************
@@ -715,6 +720,7 @@ class DAOPTION(object):
             "nOutputs": 1,
             "batchSize": 1000,
         }
+
 
 
 class PYDAFOAM(object):
@@ -1927,10 +1933,6 @@ class PYDAFOAM(object):
             self.writeDeformedFFDs(self.nSolvePrimals)
 
         self.nSolvePrimals += 1
-
-        #NO IDEA WHETHER THIS IS THE RIGHT PLACE TO DO THIS, but let's put it here for now:
-        self.solver.reconstructPar()
-        # TODO: should also delete all the processorXX folders. Do it in the python layer or in C?
 
         return
 
@@ -3265,6 +3267,13 @@ class PYDAFOAM(object):
                 shutil.move(src, dst)
             except Exception:
                 raise Error("Can not move %s to %s" % (src, dst))
+
+
+        if self.getOption("reconstructOpt") and self.comm.rank == 0:
+
+            self.solver.reconstructPar()
+            # TODO: should also delete all the processorXX folders. Do it in the python layer or in C?
+            #       Let's do it here.
 
         renamed = True
         return distTime, renamed

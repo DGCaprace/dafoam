@@ -73,9 +73,6 @@ void DARhoSimpleCFoam::initSolver()
     // initialize checkMesh
     daCheckMeshPtr_.reset(new DACheckMesh(daOptionPtr_(), runTime, mesh));
     
-    // initialize reconstructPar
-    daReconstructParPtr_.reset(new DAReconstructPar(daOptionPtr_(), runTime, mesh));
-
     daLinearEqnPtr_.reset(new DALinearEqn(mesh, daOptionPtr_()));
 
     this->setDAObjFuncList();

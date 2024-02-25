@@ -13,7 +13,6 @@ EXE_INC = \
     -I$(LIB_SRC)/parallel/reconstruct/reconstruct/lnInclude \
     -I$(LIB_SRC)/regionModels/regionModel/regionProperties \
     -I../include \
-    -I../utilities/meshProcessing/reconstructPar \
     -I$(PETSC_DIR)/include \
     -I$(PETSC_DIR)/$(PETSC_ARCH)/include \
     -I$(MPI_ARCH_PATH)/include \

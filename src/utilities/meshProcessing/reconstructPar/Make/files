@@ -1,3 +1,0 @@
-DAReconstructPar.C
-
-LIB = $(DAFOAM_ROOT_PATH)/OpenFOAM/sharedLibs/libreconstructPar
