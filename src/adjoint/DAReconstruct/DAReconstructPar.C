@@ -15,15 +15,11 @@ namespace Foam
 
 // Constructors
 DAReconstructPar::DAReconstructPar(
-    const DAOption& daOption,
-    const Time& runTime1,
-    const fvMesh& mesh1)
-    : daOption_(daOption),
-      runTime(runTime1),
-      mesh(mesh1)
+    const DAOption& daOption)
+    : daOption_(daOption)
 {
 
-    fvMesh& meshNew = const_cast<fvMesh&>(mesh);
+    // fvMesh& meshNew = const_cast<fvMesh&>(mesh);
 
 
     // maxNonOrth_ = daOption_.getSubDictOption<scalar>("checkMeshThreshold", "maxNonOrth");
@@ -57,7 +53,8 @@ label DAReconstructPar::run() const
 
     label reconstructOK = 1;
 
-    Info << "reconstructPar for time = " << runTime.timeName() << endl;
+    Info << "reconstructPar" << endl;
+    // Info << "reconstructPar for time = " << runTime.timeName() << endl;
 
     /*
     //We always reconstruct all regions
@@ -367,7 +364,7 @@ label DAReconstructPar::run() const
 
     return reconstructOK;
 #else
-    return 0;
+    return 1;
 #endif    
 }
 

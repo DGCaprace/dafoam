@@ -63,6 +63,9 @@ DASolver::DASolver(
     primalMinResTol_ = daOptionPtr_->getOption<scalar>("primalMinResTol");
     primalMinIters_ = daOptionPtr_->getOption<label>("primalMinIters");
 
+    // initialize reconstructPar
+    daReconstructParPtr_.reset(new DAReconstructPar(daOptionPtr_())); //runTime, mesh?
+
     Info << "DAOpton initialized " << endl;
 }
 
@@ -103,9 +106,6 @@ autoPtr<DASolver> DASolver::New(
             << dictionaryConstructorTablePtr_->sortedToc()
             << exit(FatalError);
     }
-
-    // initialize reconstructPar
-    daReconstructParPtr_.reset(new DAReconstructPar(daOptionPtr_())); //runTime, mesh?
 
     // child class found
     return autoPtr<DASolver>(

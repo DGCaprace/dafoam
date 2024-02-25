@@ -47,20 +47,18 @@ private:
     // #include "setRootCase.H"
     // #include "createTime.H"
 
-    /// Time object
-    const Time& runTime;
+    // /// Time object
+    // const Time& runTime;
 
-    /// fvMesh object
-    const fvMesh& mesh;
+    // /// fvMesh object
+    // const fvMesh& mesh;
 
 public:
     // Constructors
 
     /// Construct from components
     DAReconstructPar(
-        const DAOption& daOption,
-        const Time& runTime1,
-        const fvMesh& mesh1);
+        const DAOption& daOption);
 
     /// Destructor
     virtual ~DAReconstructPar();
