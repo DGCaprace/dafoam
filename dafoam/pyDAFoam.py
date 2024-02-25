@@ -3255,6 +3255,7 @@ class PYDAFOAM(object):
             renamed = False
             return latestTime, renamed
 
+        self.comm.Barrier() #let's make sure every proc is ready not still busy reading what we're about to rename.
         distTime = 0.0 #initializing
         if (not collatedIO or (collatedIO and self.comm.rank==0) ):
             distTime = "%g" % (solIndex / 1e8) #is this really what we want? this makes my OpenFOAM crash... "%.8f" worked better
